@@ -8,6 +8,7 @@
                :srfi-9
                :srfi-11)
   :components ((:file "package")
+               (:file "util")
                (:file "srfi-37")
                (:file "test")))
 
