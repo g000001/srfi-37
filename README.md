@@ -1,4 +1,4 @@
-* SRFI 37: args-fold: a program argument processor
+# SRFI 37: args-fold: a program argument processor
 - Copyright (C) Anthony Carrico (2002). All Rights Reserved.
 
 Permission is hereby granted, free of charge, to any person obtaining
