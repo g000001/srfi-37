@@ -1,11 +1,6 @@
 ;;;; srfi-37.lisp
 
-(cl:in-package :srfi-37.internal)
-;; (in-readtable :srfi-37)
-
-(def-suite srfi-37)
-
-(in-suite srfi-37)
+(cl:in-package "https://github.com/g000001/srfi-37#internals")
 
 ;;; args-fold.scm - a program argument processor
 ;;;
@@ -149,7 +144,7 @@
                       (args (cdr args)))
                   ;; NOTE: This string matching code would be simpler
                   ;; using a regular expression matcher.
-                  (srfi-61:cond
+                  (cond
                    (;; (rx bos "--" eos)
                     (string=? "--" arg)
                     ;; End option scanning:
@@ -171,27 +166,27 @@
                                  (:else
                                   (loop (+ 1 index))))))
                     ;; Found long option with arg:
-                    :=> (lambda (=-index)
+                    => (lambda (=-index)
                          (let*-values
-                             (((name)
-                               (subseq arg 2 =-index))
-                              ((option-arg)
-                               (subseq arg
-                                       (+ =-index 1)
-                                       (string-length arg)))
-                              ((option)
-                               (or (find-option name)
-                                   (option (list name)
-                                           'T
-                                           'NIL
-                                           unrecognized-option-proc)))
-                              (seeds
-                               (apply (option-processor option)
-                                      option
-                                      name
-                                      option-arg
-                                      seeds)))
-                           (scan-args args seeds))))
+                          (((name)
+                            (subseq arg 2 =-index))
+                           ((option-arg)
+                            (subseq arg
+                                    (+ =-index 1)
+                                    (string-length arg)))
+                           ((option)
+                            (or (find-option name)
+                                (option (list name)
+                                        'T
+                                        'NIL
+                                        unrecognized-option-proc)))
+                           (seeds
+                            (apply (option-processor option)
+                                   option
+                                   name
+                                   option-arg
+                                   seeds)))
+                          (scan-args args seeds))))
                    (;;(rx bos "--" (submatch (+ any)))
                     (and (> (string-length arg) 3)
                          (char=? #\- (string-ref arg 0))
@@ -226,7 +221,7 @@
                     ;; Found short options
                     (let ((shorts (subseq arg 1 (string-length arg))))
                       (scan-short-options 0 shorts args seeds)))
-                   (:else
+                   (else
                     (let-values ((seeds (apply operand-proc arg seeds)))
                       (scan-args args seeds)))))))))
       (scan-args args seeds))))

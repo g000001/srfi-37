@@ -1,17 +1,35 @@
 ;;;; package.lisp
 
-(cl:in-package :cl-user)
+(cl:in-package common-lisp-user)
 
-(defpackage :srfi-37
+
+(defpackage "https://github.com/g000001/srfi-37"
   (:use)
   (:export
-   :args-fold
-   :option
-   :option-names
-   :option-required-arg?
-   :option-optional-arg?
-   :option-processor ))
+   args-fold
+   option
+   option-names
+   option-required-arg?
+   option-optional-arg?
+   option-processor ))
 
-(defpackage :srfi-37.internal
-  (:use :srfi-37 :cl :fiveam :srfi-9 :srfi-11)
-  (:shadow :lambda :member :map :assoc :write :loop :find))
+
+(defpackage "https://github.com/g000001/srfi-37#internals"
+  (:use
+   "https://github.com/g000001/srfi-37"
+   "https://github.com/g000001/srfi-9"
+   "https://github.com/g000001/srfi-5"
+   "https://github.com/g000001/srfi-61"
+   "https://github.com/g000001/srfi-11"
+   cl
+   fiveam)
+  (:shadowing-import-from 
+   "https://github.com/g000001/srfi-5"
+   let)
+  (:shadowing-import-from 
+   "https://github.com/g000001/srfi-61"
+   cond => else)
+  (:shadow lambda member map assoc write loop find))
+
+
+;;; *EOF*
